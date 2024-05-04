@@ -1,5 +1,5 @@
 <?
-// ПРОСТРАНСТВО ИМЁН
+
 namespace app\core;
 
 class Router
