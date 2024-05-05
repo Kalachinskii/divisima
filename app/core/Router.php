@@ -49,10 +49,28 @@ class Router
         if ($this->match()) {
             $controller_name = "\app\controllers\\" . $this->params['controller'] . 'Controller';
             if (class_exists($controller_name)) {
-                echo 'yes';
+                $action_name = $this->params['action'] . 'Action';
+                // поступают в конструктор при передачи в иницилизированный класс
+                $controller = new $controller_name($this->params); // indexAction
+                // проверка существования метода indexAction
+                if (method_exists($controller, $action_name)) {
+                    $controller->$action_name();
+                } else {
+                    if (PROD) {
+                        include_once 'app/config/views/404/index.php';
+                    } else {
+                        echo 'Нет метода: ' . $action_name;
+                    }
+                }
             } else {
-                echo 'no';
+                if (PROD) {
+                    include_once 'app/config/views/404/index.php';
+                } else {
+                    echo 'Нет класса: ' . $controller_name;
+                }
             }
+        } else {
+            include_once 'app/config/views/404/index.php';
         }
     }
 }
