@@ -1,4 +1,6 @@
 <?
+require_once 'app/config/pathes.php';
+include_once 'app/lib/debag.php';
 
 use app\core\Router;
 
@@ -8,4 +10,5 @@ spl_autoload_register(function ($class) {
     require_once "{$class}.php";
 });
 
-new Router();
+$router = new Router();
+$router->run();
