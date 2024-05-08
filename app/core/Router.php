@@ -59,20 +59,24 @@ class Router
                     $controller->$action_name();
                 } else {
                     if (PROD) {
-                        include_once 'app/views/404/index.php';
+                        include 'app/views/404/index.php';
                     } else {
-                        echo 'Нет метода: ' . $action_name;
+                        echo '404 Page not found';
                     }
                 }
             } else {
                 if (PROD) {
-                    include_once 'app/views/404/index.php';
+                    include 'app/views/404/index.php';
                 } else {
-                    echo 'Нет класса: ' . $controller_name;
+                    echo '404 Page not found';
                 }
             }
         } else {
-            include_once 'app/views/404/index.php';
+            if (PROD) {
+                include 'app/views/404/index.php';
+            } else {
+                echo '404 Page not found';
+            }
         }
     }
 }

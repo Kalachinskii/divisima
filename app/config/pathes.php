@@ -1,3 +1,3 @@
 <?
 define('PATH', '');
-define('PROD', true);
+define('PROD', false);

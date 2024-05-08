@@ -14,6 +14,6 @@ class MainController extends Controller
     public function indexAction()
     {
         // в конструктор контролера родителя придёт то что мы передавали при создании экземпляра класса
-        echo "MainController.indexAction";
+        // echo "MainController.indexAction";
     }
 }
