@@ -1,6 +1,6 @@
 <?
-require_once 'app/config/pathes.php';
-include_once 'app/lib/debag.php';
+require_once "app/config/pathes.php";
+include "app/lib/debug.php";
 
 use app\core\Router;
 

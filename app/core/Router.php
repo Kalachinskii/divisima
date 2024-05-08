@@ -23,19 +23,21 @@ class Router
 
     private function match()
     {
-        $url_with_query = trim($_SERVER['REQUSEST_URI'], '/');
-        $url = $this->remove_query_string($url_with_query);
+        // full url: https://www.divisima.com/about/?id=1&name=bob
+        // REQUEST_URI: /about/?id=1&name=bob
+        $url_with_query = trim($_SERVER['REQUEST_URI'], '/'); // about/?id=1&name=bob
+        $url = $this->removeQueryString($url_with_query);
 
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
                 $this->params = $params;
                 return true;
             }
-            return false;
         }
+        return false;
     }
 
-    private function remove_query_string($url)
+    private function removeQueryString($url)
     {
         $url_parts = explode('?', $url);
         return trim(
@@ -57,20 +59,20 @@ class Router
                     $controller->$action_name();
                 } else {
                     if (PROD) {
-                        include_once 'app/config/views/404/index.php';
+                        include_once 'app/views/404/index.php';
                     } else {
                         echo 'Нет метода: ' . $action_name;
                     }
                 }
             } else {
                 if (PROD) {
-                    include_once 'app/config/views/404/index.php';
+                    include_once 'app/views/404/index.php';
                 } else {
                     echo 'Нет класса: ' . $controller_name;
                 }
             }
         } else {
-            include_once 'app/config/views/404/index.php';
+            include_once 'app/views/404/index.php';
         }
     }
 }
