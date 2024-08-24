@@ -1,3 +1,5 @@
 <?
 define('PATH', '');
-define('PROD', true);
+define('PROD', false);
+define('WWW', "public");
+define('LIB', "app/lib");
