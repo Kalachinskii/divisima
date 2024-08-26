@@ -69,6 +69,7 @@
               <div class="up-item">
                 <a href="/cart" class="shopping-card">
                   <i class="flaticon-bag"></i>
+                  <!-- общее кол-во товаров -->
                   <span><?= !$data->cart_qty ? 0 : $data->cart_qty ?></span>
                 </a>
               </div>

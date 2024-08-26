@@ -9,6 +9,7 @@ class Main extends Model
   {
     return $this->db->custom_query("SELECT url_name FROM assets WHERE type_id=1");
   }
+  
   public function get_features()
   {
     return $this->db->custom_query("SELECT url_name FROM assets WHERE type_id=2");
@@ -57,7 +58,8 @@ class Main extends Model
     return $this->db->custom_query("SELECT product_id FROM favourites WHERE user_id={$user->id}");
   }
 
-  public function add_to_cart($login, $product_id) {
+  public function add_to_cart($login, $product_id)
+  {
     $user = $this->db->fetchOne($login, "users", "login");
     $is_in_cart = $this->db->custom_query("SELECT product_id, qty FROM carts WHERE user_id=? AND product_id=?", [$user->id, $product_id]);
 
@@ -71,11 +73,5 @@ class Main extends Model
 
       return $this->db->custom_query("UPDATE carts SET qty={$updated_qty} WHERE user_id=? AND product_id=?", [$user->id, $product_id]);
     }
-  }
-
-  public function get_cart_qty($login) {
-    $user = $this->db->fetchOne($login, "users", "login");
-    $data = $this->db->custom_query("SELECT SUM(qty) AS qty FROM carts WHERE user_id={$user->id}");
-    return $data[0]->qty;
   }
 }

@@ -3,8 +3,8 @@ namespace app\controllers;
 
 use app\core\Controller;
 
-class SigninController extends Controller
-{
+class AdminController extends Controller {
+  
   public function indexAction()
   {
     if (isset($_POST["login"]) and $_POST["password"]) {
@@ -23,7 +23,7 @@ class SigninController extends Controller
           if ($is_password_valid) {
             $_SESSION['user'] = $_POST['login'];
             // редирект пользовотеля
-            header("location: /");
+            header("location: /admin/users");
           } else {
             $signin_fail = "Пароль неверный !";
           }
@@ -36,7 +36,8 @@ class SigninController extends Controller
     $this->view->render((object) $data);
   }
 
-  private function validateForm($value, $regex) {
+  private function validateForm($value, $regex)
+  {
     return preg_match($regex, $value);
   }
 }

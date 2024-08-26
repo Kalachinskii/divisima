@@ -29,7 +29,9 @@
 								</tr>
 							</thead>
 							<tbody>
-							<?php //debug($data->cart); ?>
+							<?php if (empty($data->cart)) : ?>
+							<h2> KORZINA PYCTA </h2>
+							<?php else : ?>
 							<?php foreach ($data->cart as $product) : ?>
 						
 								<? $total += $product->qty * $product->price ?>
@@ -54,7 +56,7 @@
 									</h4></td>
 								</tr>
 								<? endforeach; ?>
-								
+								<? endif; ?>
 							</tbody>
 						</table>
 						</div>

@@ -25,6 +25,21 @@ return [
     'action' => 'index'
   ],
 
+  PATH . "/admin" => [
+    'controller' => 'admin',
+    'action' => 'index'
+  ],
+
+  PATH . "/admin/users" => [
+    'controller' => 'adminUsers',
+    'action' => 'index'
+  ],
+
+  PATH . "/admin/products" => [
+    'controller' => 'adminProducts',
+    'action' => 'index'
+  ],
+
   // Fetch routes
   // обработчики
   PATH . "categoryProductsHandler" => [

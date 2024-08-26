@@ -284,7 +284,8 @@ function addToCartHandler(elem, body) {
     if (!resp.ok) {
       throw new Error("Ошибка добавления визбранное. Попробуйте позже");
     }
-    return resp.json();
+    // return resp.json();
+    return resp.text();
   })
   .then((data) => {
     if (data === false) {
@@ -315,7 +316,6 @@ function addToCartHandler(elem, body) {
         }
         deleteAlert(alertElem);
       }
-
       document.querySelector('.shopping-card span').textContent = Number(document.querySelector('.shopping-card span').textContent) + 1;
     }
   })
