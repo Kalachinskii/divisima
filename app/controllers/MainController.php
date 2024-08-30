@@ -10,8 +10,7 @@ class MainController extends Controller
 
   public function indexAction()
   {
-    debug(unserialize($_COOKIE['cart']));
-
+    // debug(unserialize($_COOKIE['cart']));
     include LIB . '/texts/main.php';
     $banners_urls = $this->model->get_banners();
     $features_urls = $this->model->get_features();
@@ -130,36 +129,26 @@ class MainController extends Controller
   public function addToCartHandlerAction() 
   {
     if ($this->isFetch()) {
-      // вытянуть джейсон
       $json = file_get_contents('php://input');
       $data = json_decode($json);
-      // вытянуть переданный id товара
       $product_id = $data->productId;
       // добавление товара
       // не авторизован - кука
       if(empty($_SESSION["user"])) {
-        // проверка на существование куки - т.е.
         if(isset($_COOKIE['cart'])) {
-          // распаковка = получаем сассив товаров где ключи это id товара а значение его колличество "1" => 82
           $cart = unserialize($_COOKIE['cart']);
-          // проверяем наличия ключа $product_id в нашем распакованном массиве кук
-          // $product_id - поступает при нажатии добавить товар в карзину
           if (array_key_exists($product_id, $cart)) {
-            // в случаее нахождения то проходимся по массиву и меняем значение
             foreach ($cart as $key => &$value) {
               if ($key == $product_id) {
                 $value++;
               }
             }
-            // перезаливаем старую куку на новую
             setcookie("cart", serialize($cart), time() + 3600); 
           } else {
-            // если нет совпадений по id товара то добавляем новый товар с id
             $cart[$product_id] = 1;
             setcookie("cart", serialize($cart), time() + 3600); 
           }  
         } else {
-          // если кука не создавалась то иницилизируем куку 1 раз с добавлением товара
           $cart[$product_id] = 1;
           setcookie("cart", serialize($cart), time() + 3600);
         }

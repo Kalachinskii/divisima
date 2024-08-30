@@ -58,20 +58,20 @@ class Main extends Model
     return $this->db->custom_query("SELECT product_id FROM favourites WHERE user_id={$user->id}");
   }
 
-  public function add_to_cart($login, $product_id)
-  {
-    $user = $this->db->fetchOne($login, "users", "login");
-    $is_in_cart = $this->db->custom_query("SELECT product_id, qty FROM carts WHERE user_id=? AND product_id=?", [$user->id, $product_id]);
+  // public function add_to_cart($login, $product_id)
+  // {
+  //   $user = $this->db->fetchOne($login, "users", "login");
+  //   $is_in_cart = $this->db->custom_query("SELECT product_id, qty FROM carts WHERE user_id=? AND product_id=?", [$user->id, $product_id]);
 
-    // есть товар в карзине
-    if (empty($is_in_cart)) {
-      // У юзера в корзине еще нет такого товара
-      return $this->db->custom_query("INSERT INTO carts (user_id, product_id, qty) VALUES (?,?,?)", [$user->id, $product_id, 1]);
-    } else {
-      // колличетсо товаров
-      $updated_qty = $is_in_cart[0]->qty + 1;
+  //   // есть товар в карзине
+  //   if (empty($is_in_cart)) {
+  //     // У юзера в корзине еще нет такого товара
+  //     return $this->db->custom_query("INSERT INTO carts (user_id, product_id, qty) VALUES (?,?,?)", [$user->id, $product_id, 1]);
+  //   } else {
+  //     // колличетсо товаров
+  //     $updated_qty = $is_in_cart[0]->qty + 1;
 
-      return $this->db->custom_query("UPDATE carts SET qty={$updated_qty} WHERE user_id=? AND product_id=?", [$user->id, $product_id]);
-    }
-  }
+  //     return $this->db->custom_query("UPDATE carts SET qty={$updated_qty} WHERE user_id=? AND product_id=?", [$user->id, $product_id]);
+  //   }
+  // }
 }

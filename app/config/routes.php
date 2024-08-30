@@ -61,4 +61,15 @@ return [
     'controller' => 'main',
     'action' => 'addToCartHandler'
   ],
+
+  PATH . "addDelToCart" => [
+    'controller' => 'cart',
+    'action' => 'addDelToCartHandler'
+  ],
+
+  PATH . "currentSqyProducts" => [
+    'controller' => 'cart',
+    'action' => 'currentSqyProductsHandler'
+  ],
+
 ];
