@@ -35,7 +35,7 @@
 </div> -->
                     <!-- /.col -->
                     <div class="col">
-                        <button type="submit" class="site-btn">Sign in</button>
+                        <button type="submit" class="site-btn btn btn-block btn-success">Sign in</button>
                     </div>
                     <!-- /.col -->
                 </div>
