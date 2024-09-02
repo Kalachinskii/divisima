@@ -157,8 +157,7 @@ qtyProducts?.forEach(product => {
     let currentProductAll = 0;
     qtyProducts?.forEach(product => {
       currentProductAll += +product.value
-      console.log(currentProductAll);
-      
+      // console.log(currentProductAll);
     });
     
     currentProductAllHandler(e.target.closest("tr"), body, currentProductAll);
@@ -171,6 +170,8 @@ document.querySelector('.cart-table-warp table')?.addEventListener('input', (e) 
     // console.log(arr);
     const productId = e.target.closest("tr").dataset.id;
     const currentSqy = e.target.value;
+    console.log(currentSqy);
+    
     const body = JSON.stringify({ productId, "currentSqy": currentSqy });
     // отрисовка внесение в куку (БД при авторизованном пользователе)
     currentSqyProductsHandler(e.target.closest("tr"), body, currentSqy);

@@ -3,8 +3,9 @@ namespace app\controllers;
 
 use app\core\Controller;
 
-class AdminController extends Controller {
-  
+
+class AdminController extends Controller
+{
   public function indexAction()
   {
     if (isset($_POST["login"]) and $_POST["password"]) {
@@ -23,6 +24,7 @@ class AdminController extends Controller {
           if ($is_password_valid) {
             $_SESSION['user'] = $_POST['login'];
             // редирект пользовотеля
+            // debug("asdasd");
             header("location: /admin/users");
           } else {
             $signin_fail = "Пароль неверный !";
@@ -32,12 +34,25 @@ class AdminController extends Controller {
     }
 
     $data = compact('signin_fail');
-    $this->view->layout = 'account';
+    $this->view->layout = 'auth';
     $this->view->render((object) $data);
   }
 
-  private function validateForm($value, $regex)
+  public function usersAction()
   {
+    $data = compact('13');
+    $this->view->layout = 'admin';
+    $this->view->render((object) $data);
+  }
+
+  public function productsAction()
+  {
+    $data = compact('13');
+    $this->view->layout = 'admin';
+    $this->view->render((object) $data);
+  }
+
+  private function validateForm($value, $regex) {
     return preg_match($regex, $value);
   }
 }

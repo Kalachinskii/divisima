@@ -3,7 +3,9 @@
   const PROD = Boolean("<?= PROD ?>");
   const WWW = "<?= WWW ?>";
 </script>
+<!-- jQuery -->
 <script src="<?= WWW ?>/js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap -->
 <script src="<?= WWW ?>/js/bootstrap.min.js"></script>
 <script src="<?= WWW ?>/js/jquery.slicknav.min.js"></script>
 <script src="<?= WWW ?>/js/owl.carousel.min.js"></script>

@@ -14,7 +14,7 @@ class CartController extends Controller
         $cart = unserialize($_COOKIE['cart']);
         $cart_qty = array_sum($cart);
         $cart = $this->model->get_cart_no_name($cart);
-        // debug($cart);
+        debug($cart);
       }
     } else {
       // получение колличества элементов у пользовотеля в корзине
@@ -96,7 +96,7 @@ class CartController extends Controller
       if(empty($_SESSION["user"])) {
         if(isset($_COOKIE['cart'])) {
           $cart = unserialize($_COOKIE['cart']);
-          debug($cart);
+
           if (array_key_exists($product_id, $cart)) {
             foreach ($cart as $key => &$value) {
               if ($key == $product_id) {

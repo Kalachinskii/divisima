@@ -1,3 +1,4 @@
+<!-- Authorization и Registration -->
 <? include 'app/views/layouts/includes_account/header.php' ?>
 
 <?= $content; ?>

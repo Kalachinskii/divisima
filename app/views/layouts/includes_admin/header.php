@@ -7,29 +7,56 @@
   <meta name="description" content="Divisima | eCommerce Template">
   <meta name="keywords" content="divisima, eCommerce, creative, html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Favicon -->
-  <link href="<?= WWW ?>/img/favicon.ico" rel="shortcut icon" />
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
-
-
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="<?= WWW ?>/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="<?= WWW ?>/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="<?= WWW ?>/css/flaticon.css" />
-  <link rel="stylesheet" href="<?= WWW ?>/css/slicknav.min.css" />
-  <link rel="stylesheet" href="<?= WWW ?>/css/jquery-ui.min.css" />
-  <link rel="stylesheet" href="<?= WWW ?>/css/owl.carousel.min.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?= WWW ?>/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="<?= WWW ?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?= WWW ?>/css/adminlte.min.css">
   <link rel="stylesheet" href="<?= WWW ?>/css/animate.css" />
-  <link rel="stylesheet" href="<?= WWW ?>/css/style.css" />
-
-
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+  <link rel="stylesheet" href="<?= WWW ?>/css/adminlte.css">
 </head>
 
 <body>
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/admin" class="brand-link">
+      <img src="/public/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="users" class="nav-link">
+              <i class="nav-icon far fa-solid fa-user"></i>
+              <p>
+                Users
+                <span class="badge badge-info right">2</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="products" class="nav-link">
+              <i class="nav-icon far fa-solid fa-cart-shopping"></i>
+              <p>
+                Products
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+

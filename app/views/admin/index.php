@@ -1,23 +1,62 @@
-<?= $_SESSION["user"] ?>
-<div class="row justify-content-center align-content-center align-items-center h-100 bg-dark" style="gap: 20px;">
-  <form id="form-signin" class="contact-form needs-validation d-flex flex-column" style="gap: 20px;" novalidate method="post">
-    <h2 class="text-white">Authorization</h2>
-    <div class="input-group has-validation">
-      <input class="form-control rounded-pill" type="text" name="login" id="login" placeholder="Your login" required>
-      <div class="invalid-feedback">
-          Login should be more then 4 fymbolds and include a-Z A-Z 0-9
-      </div>
+<!-- login-box -->
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/admin"><b>Admin</b>LTE</a>
     </div>
-    <div class="input-group has-validation">
-      <input class="form-control rounded-pill" type="password" name="password" placeholder="Your password" id="password">
-      <div class="invalid-feedback">
-        Password should be more then 4 fymbolds and include a-Z A-Z 0-9
-      </div>
-    </div>
-    <button type="submit" class="site-btn">Sign in</button>
-  </form>
-  <?php if ($data->signin_fail) : ?>
-    <br>
-    <p class="text-danger col-12 text-center"><?= $data->signin_fail ?></p>
-  <?php endif; ?>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <form method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="login" placeholder="Login">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fa-solid fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-8">
+<div class="icheck-primary">
+    <input type="checkbox" id="remember">
+    <label for="remember">
+        Remember Me
+    </label>
 </div>
+</div> -->
+                    <!-- /.col -->
+                    <div class="col">
+                        <button type="submit" class="site-btn">Sign in</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center mb-3">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                </a>
+            </div>
+            <!-- /.social-auth-links -->
+
+            <p class="mb-1">
+                <a href="#">I forgot my password</a>
+            </p>
+            <p class="mb-0">
+                <a href="#" class="text-center">Register a new membership</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->

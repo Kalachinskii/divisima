@@ -1,4 +1,4 @@
-<?= $_SESSION["user"] ?>
+<!-- <?= $_SESSION["user"] ?> -->
 <div class="row justify-content-center align-content-center align-items-center h-100 bg-dark" style="gap: 20px;">
   <form id="form-signin" class="contact-form needs-validation d-flex flex-column" style="gap: 20px;" novalidate method="post">
     <h2 class="text-white">Authorization</h2>

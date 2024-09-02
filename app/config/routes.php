@@ -31,13 +31,13 @@ return [
   ],
 
   PATH . "/admin/users" => [
-    'controller' => 'adminUsers',
-    'action' => 'index'
+    'controller' => 'admin',
+    'action' => 'users'
   ],
 
   PATH . "/admin/products" => [
-    'controller' => 'adminProducts',
-    'action' => 'index'
+    'controller' => 'admin',
+    'action' => 'products'
   ],
 
   // Fetch routes
