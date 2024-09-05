@@ -13,3 +13,12 @@ td img{
     color: blue;
     cursor: pointer;
 }
+
+.table-responsive table tbody tr *{
+    align-content: center !important;
+}
+
+.modal-del .modal-footer {
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+}
