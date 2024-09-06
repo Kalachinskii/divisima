@@ -1,4 +1,5 @@
 <?
+
 namespace app\controllers;
 
 use app\core\Controller;
@@ -11,8 +12,8 @@ class AdminController extends Controller
     if (isset($_POST["login"]) and $_POST["password"]) {
       $is_valid_login = $this->validateForm($_POST["login"], "/^[a-zA-Z][a-zA-Z0-9-_\.]{4,20}$/");
       $is_valid_password = $this->validateForm($_POST["password"], "/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/");
-    
-      if($is_valid_login and $is_valid_password) {
+
+      if ($is_valid_login and $is_valid_password) {
         $is_user = $this->model->check_is_user($_POST["login"]);
 
         if ($is_user->error) {
@@ -40,19 +41,29 @@ class AdminController extends Controller
 
   public function usersAction()
   {
-    $data = compact('13');
+    $users = $this->model->get_users();
+    $count_users = $this->model->get_count_users();
+    $count_products = $this->model->get_count_products();
+    
+    $data = compact('count_products', 'count_users', 'users');
     $this->view->layout = 'admin';
     $this->view->render((object) $data);
   }
 
   public function productsAction()
   {
-    $data = compact('13');
+    // получить всю продукцию
+    $products = $this->model->get_products();
+    $count_users = $this->model->get_count_users();
+    $count_products = $this->model->get_count_products();
+
+    $data = compact('count_products', 'count_users', 'products');
     $this->view->layout = 'admin';
     $this->view->render((object) $data);
   }
 
-  private function validateForm($value, $regex) {
+  private function validateForm($value, $regex)
+  {
     return preg_match($regex, $value);
   }
 }

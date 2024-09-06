@@ -22,3 +22,13 @@ td img{
     border: 1px solid black !important;
     border-radius: 0px !important;
 }
+
+.fa-basket-shopping {
+    color: rgb(195, 221, 221) !important;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.fa-trash {
+    color: rgb(0, 0, 0) !important;
+    text-shadow: 1px 1px 1px rgb(195, 221, 221);
+}

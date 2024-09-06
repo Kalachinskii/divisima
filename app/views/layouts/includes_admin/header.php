@@ -147,7 +147,7 @@
     <!-- Brand Logo -->
     <a href="/admin" class="brand-link">
       <img src="/public/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+          style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
@@ -160,7 +160,7 @@
               <i class="nav-icon far fa-solid fa-user"></i>
               <p>
                 Users
-                <span class="badge badge-info right">2</span>
+                <span class="badge badge-info right"><?=$data->count_users[0]->count;?></span>
               </p>
             </a>
           </li>
@@ -169,6 +169,7 @@
               <i class="nav-icon far fa-solid fa-cart-shopping"></i>
               <p>
                 Products
+                <span class="badge badge-info right"><?= $data->count_products[0]->count;?></span>
               </p>
             </a>
           </li>

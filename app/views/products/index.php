@@ -1,3 +1,4 @@
+<? //debug($data);?>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -5,11 +6,11 @@
             <!-- Main row -->
             <div class="row">
                 <div class="row table-responsive align-items-center">
-                    <table class="table table-striped ">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">ID</th>
+                                <!-- <th scope="col">ID</th> -->
                                 <th scope="col">Image</th>
                                 <th scope="col">Categories</th>
                                 <th scope="col">Name</th>
@@ -23,44 +24,52 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">
-                                    1
-                                </th>
-                                <td>
-                                    19
-                                </td>
-                                <td>
-                                    <img src="/public/img/product/1.jpg" class="img-fluid rounded-start">
-                                </td>
-                                <td>
-                                    lingerie
-                                </td>
-                                <td>
-                                    Flambouold Pink Top
-                                </td>
-                                <td>
-                                    500 штук
-                                </td>
-                                <td>
-                                    $53,00
-                                </td>
-                                <td>
-                                    10%
-                                </td>
-                                <td>
-                                    $42.40
-                                </td>
-                                <td>
-                                    1
-                                </td>
-                                <td>
-                                    <i class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Изменить</i>
-                                </td>
-                                <td>
-                                    <i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#delModal"> Удалить</i>
-                                </td>
-                            </tr>
+                            <?php $i = 1; ?>
+                            <?php foreach ($data->products as $value) : ?>
+                                <tr data-id="<?= $value->id; ?>">
+                                    <th scope="row">
+                                        <?= $i++; ?>
+                                    </th>
+                                    <!-- <td>
+                                        
+                                    </td> -->
+                                    <td>
+                                        <?= $feature->url_name ?>
+                                        <img src="<?= WWW ?>/img/product/<?= $value->image; ?>" class="img-fluid rounded-start">
+                                    </td>
+                                    <td>
+                                        <?= $value->category_name; ?>
+                                    </td>
+                                    <td>
+                                        <?= $value->name; ?>
+                                    </td>
+                                    <td>
+                                    <?= $value->count; ?>
+                                    </td>
+                                    <td>
+                                        $<?= $value->price; ?>
+                                    </td>
+                                    <td>
+                                        <?= $value->discount; ?>
+                                    </td>
+                                    <td class="discounted-Price">
+                                        <? if ($value->discount > 0) : ?>
+                                            <?= round($value->price - ($value->price / 100 * $value->discount), 2); ?>
+                                        <? else : ?>
+                                            <?= $value->price; ?>
+                                        <? endif; ?>
+                                    </td>
+                                    <td>
+                                        <?= $value->hot; ?>
+                                    </td>
+                                    <td>
+                                        <i class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Изменить</i>
+                                    </td>
+                                    <td>
+                                        <i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#delModal"> Удалить</i>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>

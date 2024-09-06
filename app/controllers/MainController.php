@@ -10,12 +10,13 @@ class MainController extends Controller
 
   public function indexAction()
   {
-    // debug(unserialize($_COOKIE['cart']));
+
     include LIB . '/texts/main.php';
     $banners_urls = $this->model->get_banners();
     $features_urls = $this->model->get_features();
     $categories = $this->model->get_categories();
     $products = $this->model->get_products($this->start, $this->limit);
+    // debug($products);    
     $hot = 4;
     $hot_products = $this->model->get_hot_products($hot);
     if(!empty($_SESSION["user"])) {
