@@ -1,4 +1,5 @@
 <?
+
 namespace app\controllers;
 
 use app\core\Controller;
@@ -19,20 +20,20 @@ class MainController extends Controller
     // debug($products);    
     $hot = 4;
     $hot_products = $this->model->get_hot_products($hot);
-    if(!empty($_SESSION["user"])) {
+    if (!empty($_SESSION["user"])) {
       $favourites_array = $this->model->get_favorite_products($_SESSION["user"]);
       $cart_qty = $this->model->get_cart_qty($_SESSION["user"]);
       if (!empty($favourites_array)) {
-        $favourites = array_map(function($item) {
+        $favourites = array_map(function ($item) {
           return $item->product_id;
         }, $favourites_array);
       }
     }
-    if(!empty($_COOKIE['cart'])) {
+    if (!empty($_COOKIE['cart'])) {
       $cart = unserialize($_COOKIE['cart']);
       $cart_qty = array_sum($cart);
     }
-    
+
     $banners = $this->add_object_texts($banners_urls, $banners_texts);
     $features = $this->add_object_texts($features_urls, $features_texts);
 
@@ -56,7 +57,7 @@ class MainController extends Controller
       $json = file_get_contents('php://input');
       $data = json_decode($json);
       $category_id = $data->categoryId;
-      $load_more_limit = 2;
+      $load_more_limit = 4;
 
       if (is_numeric($category_id) and $category_id == 0) {
         $products = $this->model->get_products($data->start ? $data->start : $this->start, $data->start ? $load_more_limit : $this->limit);
@@ -84,7 +85,7 @@ class MainController extends Controller
       $product_id = $data->productId;
 
       // РАЗОБРАТЬСЯ
-      if(empty($_SESSION["user"])) {
+      if (empty($_SESSION["user"])) {
         echo json_encode(401);
         return;
       }
@@ -127,7 +128,7 @@ class MainController extends Controller
     }
   }
 
-  public function addToCartHandlerAction() 
+  public function addToCartHandlerAction()
   {
     if ($this->isFetch()) {
       $json = file_get_contents('php://input');
@@ -135,8 +136,8 @@ class MainController extends Controller
       $product_id = $data->productId;
       // добавление товара
       // не авторизован - кука
-      if(empty($_SESSION["user"])) {
-        if(isset($_COOKIE['cart'])) {
+      if (empty($_SESSION["user"])) {
+        if (isset($_COOKIE['cart'])) {
           $cart = unserialize($_COOKIE['cart']);
           if (array_key_exists($product_id, $cart)) {
             foreach ($cart as $key => &$value) {
@@ -144,17 +145,17 @@ class MainController extends Controller
                 $value++;
               }
             }
-            setcookie("cart", serialize($cart), time() + 3600); 
+            setcookie("cart", serialize($cart), time() + 3600);
           } else {
             $cart[$product_id] = 1;
-            setcookie("cart", serialize($cart), time() + 3600); 
-          }  
+            setcookie("cart", serialize($cart), time() + 3600);
+          }
         } else {
           $cart[$product_id] = 1;
           setcookie("cart", serialize($cart), time() + 3600);
         }
-      // добавление товара
-      // авторизован - БД
+        // добавление товара
+        // авторизован - БД
       } else {
         $res = $this->model->add_to_cart($_SESSION['user'], $product_id);
         if ($res->error) {
@@ -163,7 +164,7 @@ class MainController extends Controller
         } else {
           echo json_encode(true);
         }
-      } 
+      }
     } else {
       if (PROD) {
         include 'app/views/404/index.php';

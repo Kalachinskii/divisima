@@ -1,4 +1,5 @@
 <?
+
 namespace app\core;
 
 abstract class Controller
@@ -10,6 +11,7 @@ abstract class Controller
   public function __construct($route)
   {
     session_start();
+    // session_destroy();
     $this->route = $route;
     $this->include_model($route);
     $this->view = new View($route);
@@ -26,7 +28,7 @@ abstract class Controller
     }
   }
 
-  public function print_error ($alert_msg, $echo_msg)
+  public function print_error($alert_msg, $echo_msg)
   {
     if (PROD) {
       echo "
@@ -43,8 +45,9 @@ abstract class Controller
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
   }
 
-  public function logout() {
-    if(isset($_GET['logout']) and $_GET['logout'] == true) {
+  public function logout()
+  {
+    if (isset($_GET['logout']) and $_GET['logout'] == true) {
       unset($_SESSION['user']);
     }
   }

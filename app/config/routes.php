@@ -72,4 +72,13 @@ return [
     'action' => 'currentSqyProductsHandler'
   ],
 
+  PATH . "getUserProducts" => [
+    'controller' => 'admin',
+    'action' => 'getUserProductsHandler'
+  ],
+
+  PATH . "deleteUser" => [
+    'controller' => 'admin',
+    'action' => 'deleteUserHandler'
+  ],
 ];

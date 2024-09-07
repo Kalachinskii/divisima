@@ -1,4 +1,5 @@
 <?
+
 namespace app\core;
 
 class Router
@@ -23,6 +24,13 @@ class Router
     // full url: https://www.divisima.com/about/?id=1&name=bob
     // REQUEST_URI: /about/?id=1&name=bob
     $url_with_query = trim($_SERVER['REQUEST_URI'], '/'); // about/?id=1&name=bob
+    // костыль или исправить обработчики дописав ключ для распознования с обычной страницей
+    if ($url_with_query == 'admin/getUserProducts') {
+      $url_with_query = 'getUserProducts';
+    } else if ($url_with_query == 'admin/deleteUser') {
+      $url_with_query = 'deleteUser';
+    }
+
     $url = $this->removeQueryString($url_with_query);
 
     foreach ($this->routes as $route => $params) {
@@ -40,6 +48,7 @@ class Router
     return trim($parts[0], '/'); // about
   }
 
+  // запускаеться от главного index.php
   public function run()
   {
     if ($this->match()) {
@@ -73,5 +82,3 @@ class Router
     }
   }
 }
-
-

@@ -44,7 +44,6 @@ class AdminController extends Controller
     $users = $this->model->get_users();
     $count_users = $this->model->get_count_users();
     $count_products = $this->model->get_count_products();
-    
     $data = compact('count_products', 'count_users', 'users');
     $this->view->layout = 'admin';
     $this->view->render((object) $data);
@@ -60,6 +59,39 @@ class AdminController extends Controller
     $data = compact('count_products', 'count_users', 'products');
     $this->view->layout = 'admin';
     $this->view->render((object) $data);
+  }
+
+  public function deleteUserHandlerAction()
+  {
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $userId = json_decode($json)->userId; // получили id пользвовотеля
+      $this->model->delete_user($userId);
+      echo true;
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
+  public function getUserProductsHandlerAction()
+  {
+    // функция вызывалась через fetch(true) или URL(false)
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $userId = json_decode($json)->userId; // получили id пользвовотеля
+      $products = $this->model->get_user_products($userId);
+      echo json_encode((object)($products));
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
   }
 
   private function validateForm($value, $regex)

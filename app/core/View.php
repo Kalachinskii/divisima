@@ -1,4 +1,5 @@
 <?
+
 namespace app\core;
 
 class View
@@ -14,21 +15,8 @@ class View
     // путь к файлу
     // $this->view = 'app/views/' . $route['controller'] . '/index.php';
     // debug();
-    //app/views/admin/index.php - users не актуален
-    //app/views/admin/index.php - админ авторизация
-    //app/views/main/index.php - главная
-    //app/views/signin/index.php - авторизация
-    //app/views/signup/index.php - регистрация
-    //app/views/cart/index.php - корзина
     $a = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
-    $this->view = empty($a[0]) ? 'app/views/main/index.php' : 'app/views/' . $a[count($a)-1] . '/index.php';
-    //app/views/users/index.php
-    /*
-    app/views/users/index.php - users
-    app/views/admin/index.php - admin
-    app/views//index.php - главная не найдена т.к. main
-    app/views/cart/index.php
-    */
+    $this->view = empty($a[0]) ? 'app/views/main/index.php' : 'app/views/' . $a[count($a) - 1] . '/index.php';
   }
 
   public function render($data = null)

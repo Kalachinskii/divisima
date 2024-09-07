@@ -26,8 +26,8 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item d-none d-sm-inline-block">
@@ -147,7 +147,7 @@
     <!-- Brand Logo -->
     <a href="/admin" class="brand-link">
       <img src="/public/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
@@ -160,7 +160,7 @@
               <i class="nav-icon far fa-solid fa-user"></i>
               <p>
                 Users
-                <span class="badge badge-info right"><?=$data->count_users[0]->count;?></span>
+                <span class="badge badge-info right count-users"><?= $data->count_users[0]->count > 0 ? $data->count_users[0]->count : 0; ?></span>
               </p>
             </a>
           </li>
@@ -169,7 +169,7 @@
               <i class="nav-icon far fa-solid fa-cart-shopping"></i>
               <p>
                 Products
-                <span class="badge badge-info right"><?= $data->count_products[0]->count;?></span>
+                <span class="badge badge-info right count-products"><?= $data->count_products[0]->count > 0 ? $data->count_products[0]->count : 0; ?></span>
               </p>
             </a>
           </li>
@@ -179,4 +179,3 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-

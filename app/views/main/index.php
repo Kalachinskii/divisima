@@ -28,8 +28,6 @@
 </section>
 <!-- Hero section end -->
 
-
-
 <!-- Features section -->
 <section class="features-section">
   <div class="container-fluid">
@@ -67,7 +65,7 @@
               <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
               <a href="#" class="wishlist-btn">
                 <!-- ИЗБРАННОЕ/НЕ -->
-                <? if (isset($data->favourites) AND !empty($data->favourites) AND in_array($product->id, $data->favourites)) : ?>
+                <? if (isset($data->favourites) and !empty($data->favourites) and in_array($product->id, $data->favourites)) : ?>
                   <i class="flaticon-heart favourite"></i>
                 <? else: ?>
                   <i class="flaticon-heart"></i>
@@ -95,8 +93,6 @@
 </section>
 <!-- letest product section end -->
 
-
-
 <!-- Product filter section -->
 <section class="product-filter-section">
   <div class="container">
@@ -122,7 +118,7 @@
                 <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
                 <a href="#" class="wishlist-btn">
                   <!-- ИЗБРАННОЕ/НЕ -->
-                  <? if (isset($data->favourites) AND !empty($data->favourites) AND in_array($product->id, $data->favourites)) : ?>
+                  <? if (isset($data->favourites) and !empty($data->favourites) and in_array($product->id, $data->favourites)) : ?>
                     <i class="flaticon-heart favourite"></i>
                   <? else: ?>
                     <i class="flaticon-heart"></i>
@@ -160,15 +156,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title fs-5" id="favouritesErrorModalLabel">
-                  Authorization
+          Authorization
         </h3>
       </div>
       <div class="modal-body">
         Чтобы добавить в избранное необходимо авторизоваться
       </div>
       <div class="modal-footer justify-content-start">
-                  <a href="/signin" type="button" class="btn btn-primary">Login</a>
-                  <a href="/signup" type="button" class="btn btn-outline-primary">Registr</a>
+        <a href="/signin" type="button" class="btn btn-primary">Login</a>
+        <a href="/signup" type="button" class="btn btn-outline-primary">Registr</a>
       </div>
     </div>
   </div>

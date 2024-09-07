@@ -1,4 +1,5 @@
 <?
+
 namespace app\models;
 
 use app\core\Model;
@@ -12,12 +13,13 @@ class Admin extends Model
     return $this->db->fetchOne($login, $this->table, 'login');
   }
 
-  public function check_user_password($id, $password) {
+  public function check_user_password($id, $password)
+  {
     $password_hash = $this->db->custom_query("SELECT password FROM {$this->table} WHERE id={$id}");
     // password_hash - return массив с объектами
     if ($password_hash[0]->password) {
       return password_verify($password, $password_hash[0]->password);
-    // пароля нет
+      // пароля нет
     } else {
       return false;
     }
@@ -32,7 +34,21 @@ class Admin extends Model
   // переделать накнопку через фетчь
   public function get_users()
   {
-    return $this->db->custom_query("SELECT login,id FROM users WHERE role_id=1");
+    return $this->db->custom_query("
+    SELECT 
+        users.login,
+        users.id,
+        SUM(carts.qty) as sum_products
+    FROM 
+        users
+    LEFT JOIN 
+        carts ON carts.user_id = users.id
+    WHERE 
+        users.role_id = 1
+    GROUP BY 
+        users.login, users.id;
+    ");
+    // return $this->db->custom_query("SELECT login,id FROM users WHERE role_id=1");
   }
 
   public function get_count_users()
@@ -44,75 +60,54 @@ class Admin extends Model
   {
     return $this->db->custom_query("SELECT COUNT(*) as count FROM products");
   }
-/*
-return $this->db->custom_query("SELECT users.login, products.name, products.price, carts.qty FROM users JOIN carts ON carts.user_id = users.id JOIN products ON carts.product_id = products.id");
-  Array
-(
-    [0] => stdClass Object
-        (
-            [login] => Qwer1234
-            [name] => Black jacket
-            [price] => 35.00
-            [qty] => 2
-        )
 
-    [1] => stdClass Object
-        (
-            [login] => Qwer1234
-            [name] => Milk dreskot
-            [price] => 53.00
-            [qty] => 2
-        )
+  public function get_count_products_user($idUser)
+  {
+    return $this->db->custom_query("SELECT COUNT(*) as count FROM products WHERE user_id = id");
+  }
 
-    [2] => stdClass Object
-        (
-            [login] => Qwer1234
-            [name] => Beach cover-up
-            [price] => 43.00
-            [qty] => 3
-        )
+  public function get_user_products($userId)
+  {
+    return $this->db->custom_query("SELECT products.name as name, products.price as price, carts.qty as qty 
+    FROM users 
+    JOIN carts ON carts.user_id = users.id 
+    JOIN products ON carts.product_id = products.id
+    WHERE users.id = $userId");
+  }
 
-    [3] => stdClass Object
-        (
-            [login] => Qwer1234
-            [name] => Swimsuit black
-            [price] => 32.00
-            [qty] => 4
-        )
-
-    [4] => stdClass Object
-        (
-            [login] => Qwer1234
-            [name] => Black Top
-            [price] => 32.00
-            [qty] => 5
-        )
-
-    [5] => stdClass Object
-        (
-            [login] => Qwer1234
-            [name] => White jacket
-            [price] => 32.00
-            [qty] => 6
-        )
-
-    [6] => stdClass Object
-        (
-            [login] => ASdasd123
-            [name] => Milk dreskot
-            [price] => 53.00
-            [qty] => 6
-        )
-
-    [7] => stdClass Object
-        (
-            [login] => ASdasd123
-            [name] => White jacket
-            [price] => 32.00
-            [qty] => 4
-        )
-
-)
-*/
-
+  public function delete_user($userId)
+  {
+    return $this->db->custom_query(
+      "START TRANSACTION;
+      DELETE FROM carts WHERE user_id = $userId;
+      DELETE FROM favourites WHERE user_id = $userId;
+      DELETE FROM users WHERE id = $userId;
+      COMMIT;"
+    );
+  }
 }
+// при каскадной связи
+// DELETE FROM users WHERE id = 18
+
+// при иной связи
+// START TRANSACTION;
+// DELETE FROM carts WHERE user_id = 19;
+// DELETE FROM users WHERE id = 19;
+// COMMIT;
+
+/*
+
+SELECT 
+    users.login,
+    users.id,
+    COUNT(carts.user_id) as count_carts
+FROM 
+    users
+LEFT JOIN 
+    carts ON carts.user_id = users.id
+WHERE 
+    users.role_id = 1
+GROUP BY 
+    users.login, users.id;
+
+*/
