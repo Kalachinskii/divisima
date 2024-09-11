@@ -1,4 +1,3 @@
-<? //debug($data);?>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -30,9 +29,6 @@
                                     <th scope="row">
                                         <?= $i++; ?>
                                     </th>
-                                    <!-- <td>
-                                        
-                                    </td> -->
                                     <td>
                                         <?= $feature->url_name ?>
                                         <img src="<?= WWW ?>/img/product/<?= $value->image; ?>" class="img-fluid rounded-start">
@@ -44,7 +40,7 @@
                                         <?= $value->name; ?>
                                     </td>
                                     <td>
-                                    <?= $value->count; ?>
+                                        <?= $value->count; ?>
                                     </td>
                                     <td>
                                         $<?= $value->price; ?>
@@ -66,7 +62,7 @@
                                         <i class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Изменить</i>
                                     </td>
                                     <td>
-                                        <i class="fa-solid fa-trash" data-bs-toggle="modal" data-bs-target="#delModal"> Удалить</i>
+                                        <i class="fa-solid fa-trash delete-btn" data-bs-toggle="modal" data-bs-target="#delModal"> Удалить</i>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -84,76 +80,7 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="/public/img/product/1.jpg" class="img-fluid rounded-start" style="width:100%; height:100%;">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <!-- Форма -->
-                        <div class="modal-body">
-                            <!-- Name -->
-                            <div class="row g-2 pb-1">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="Name product" value="Flambouold Pink Top">
-                                    <label for="floatingInputGrid">Name product</label>
-                                </div>
-                            </div>
-                            <!-- Price -->
-                            <div class="row g-2 pb-1">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="Price" value="53,00">
-                                    <label for="floatingInputGrid">Price</label>
-                                </div>
-                            </div>
-                            <!-- Discount -->
-                            <div class="row g-2 pb-1">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="Discount" value="10">
-                                    <label for="floatingInputGrid">Discount</label>
-                                </div>
-                            </div>
-                            <!-- Сurrent price -->
-                            <div class="row g-2 pb-1">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="Сurrent price" value="42.40">
-                                    <label for="floatingInputGrid">Сurrent price</label>
-                                </div>
-                            </div>
-                            <!-- Quantity -->
-                            <div class="row g-2">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="floatingInputGrid" placeholder="Quantity" value="100">
-                                    <label for="floatingInputGrid">Quantity</label>
-                                </div>
-                            </div>
-                            <div class="row g-2">
-                                <div class="mb-3">
-                                    <label for="formFile" class="form-label">New image</label>
-                                    <input class="form-control" type="file" id="formFile">
-                                </div>
-                            </div>
-                            <!-- Categories -->
-                            <div class="row g-2">
-                                <div class="form-floating">
-                                    <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
-                                        <option selected>Categories</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                    <label for="floatingSelectGrid">Categories</label>
-                                </div>
-                            </div>
-                            <!-- Кнопки -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Change</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

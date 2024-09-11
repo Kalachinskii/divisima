@@ -3,11 +3,6 @@ td img{
     width: 90px !important;
 }
 
-.fa-trash:hover  {
-    color: red;
-    cursor: pointer;
-}
-
 .fa-pen-to-square:hover,
 .fa-basket-shopping:hover {
     color: blue;
@@ -31,6 +26,11 @@ td img{
 .fa-trash {
     color: rgb(0, 0, 0) !important;
     text-shadow: 1px 1px 1px rgb(195, 221, 221);
+}
+
+.delete-btn:hover  {
+    color: red !important;
+    cursor: pointer;
 }
 
 .bg-secondary {

@@ -1,4 +1,5 @@
 <?
+
 namespace app\core;
 
 class DB
@@ -44,7 +45,6 @@ class DB
       $errorInfo = $stmt->errorInfo();
       return  ["error" => true, "error_msg" => $errorInfo[2]];
     }
-    
   }
 
   public function fetchOne($value, $table, $param = 'id')
@@ -56,11 +56,11 @@ class DB
       $errorInfo = $stmt->errorInfo();
       return  ["error" => true, "error_msg" => $errorInfo[2]];
     }
-    
   }
 
   public function custom_query($query, $params = null)
   {
+    // $query - запрос "SELECT * FRO...."
     $stmt = $this->db->prepare($query);
     // проверка исполнения запроса
     if ($stmt->execute($params)) {
@@ -71,6 +71,4 @@ class DB
       return (object)["error" => true, "error_msg" => $errorInfo[2]];
     }
   }
-
 }
-

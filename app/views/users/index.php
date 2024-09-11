@@ -5,7 +5,7 @@
             <!-- Main row -->
             <div class="row">
                 <div class="row table-responsive ">
-                    <ol class="list-group list-group-numbered">
+                    <ol class="list-group list-group-numbered" id="list-group">
                         <?php foreach ($data->users as $value) : ?>
                             <li class="mb-1 mt-1 list-group-item d-flex justify-content-between align-items-center" data-id="<?= $value->id; ?>">
                                 <div class="ms-2 me-auto">

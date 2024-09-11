@@ -31,7 +31,25 @@ class Admin extends Model
     return $this->db->custom_query("SELECT products.*, categories.name AS category_name FROM categories JOIN products ON products.category_id = categories.id");
   }
 
-  // переделать накнопку через фетчь
+  public function get_product($id)
+  {
+    // return $this->db->custom_query("SELECT p.id, p.image, p.name, p.price, c.qty FROM carts c JOIN products p ON c.product_id = p.id WHERE c.user_id = {$user->id}");
+    return $this->db->custom_query("SELECT products.*, categories.name AS category_name FROM categories JOIN products ON products.category_id = categories.id WHERE products.id = $id");
+  }
+  public function get_categorie_id($productId)
+  {
+    return $this->db->custom_query("SELECT category_id FROM products WHERE id = $productId");
+  }
+  public function get_categories($id)
+  {
+    return $this->db->custom_query("SELECT * FROM categories WHERE id != $id");
+  }
+
+  public function set_product($data)
+  {
+    $this->db->custom_query("UPDATE products SET `name` = '$data->name', `image` = '$data->imageName', `price` = '$data->price', `category_id` = '$data->category', `discount` = $data->discount, `count` = '$data->count' WHERE id = '$data->idProducts'");
+  }
+
   public function get_users()
   {
     return $this->db->custom_query("
@@ -86,28 +104,3 @@ class Admin extends Model
     );
   }
 }
-// при каскадной связи
-// DELETE FROM users WHERE id = 18
-
-// при иной связи
-// START TRANSACTION;
-// DELETE FROM carts WHERE user_id = 19;
-// DELETE FROM users WHERE id = 19;
-// COMMIT;
-
-/*
-
-SELECT 
-    users.login,
-    users.id,
-    COUNT(carts.user_id) as count_carts
-FROM 
-    users
-LEFT JOIN 
-    carts ON carts.user_id = users.id
-WHERE 
-    users.role_id = 1
-GROUP BY 
-    users.login, users.id;
-
-*/

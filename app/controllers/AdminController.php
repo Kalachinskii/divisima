@@ -94,6 +94,66 @@ class AdminController extends Controller
     }
   }
 
+  public function addImageDdHandlerAction()
+  {
+    if ($this->isFetch()) {
+      if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $name_img = $_FILES['image']['name'];           //     22.png
+        $path_to_img_folder = "./public/img/product/";   //     /public/img/product
+        $path_to_img = $path_to_img_folder . $name_img; //     /public/img/product/22.png
+
+        if (is_dir($path_to_img_folder)) {
+          if (move_uploaded_file($_FILES['image']['tmp_name'], $path_to_img)) {
+            echo $name_img;
+          } else {
+            echo "Файл не загружен";
+          }
+        }
+      }
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
+  public function changeProductHandlerAction()
+  {
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $data = json_decode($json)->formContent;
+      debug($data);
+      $this->model->set_product($data);
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
+  public function getTargetProductHandlerAction()
+  {
+    // функция вызывалась через fetch(true) или URL(false)
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $productId = json_decode($json)->productId; // получили id товара
+      $product = $this->model->get_product($productId);
+      $categorieId = $this->model->get_categorie_id($productId);
+      $categories = $this->model->get_categories($categorieId[0]->category_id);
+      echo json_encode((object)([$product, $categories, $categorieId[0]->category_id]));
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
   private function validateForm($value, $regex)
   {
     return preg_match($regex, $value);

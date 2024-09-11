@@ -81,4 +81,19 @@ return [
     'controller' => 'admin',
     'action' => 'deleteUserHandler'
   ],
+
+  PATH . "getTargetProduct" => [
+    'controller' => 'admin',
+    'action' => 'getTargetProductHandler'
+  ],
+
+  PATH . "changeProduct" => [
+    'controller' => 'admin',
+    'action' => 'changeProductHandler'
+  ],
+
+  PATH . "addImageDd" => [
+    'controller' => 'admin',
+    'action' => 'addImageDdHandler'
+  ],
 ];

@@ -29,7 +29,15 @@ class Router
       $url_with_query = 'getUserProducts';
     } else if ($url_with_query == 'admin/deleteUser') {
       $url_with_query = 'deleteUser';
+    } else if ($url_with_query == 'admin/getTargetProduct') {
+      $url_with_query = 'getTargetProduct';
+    } else if ($url_with_query == 'admin/changeProduct') {
+      $url_with_query = 'changeProduct';
+    } else if ($url_with_query == 'admin/addImageDd') {
+      $url_with_query = 'addImageDd';
     }
+
+
 
     $url = $this->removeQueryString($url_with_query);
 
