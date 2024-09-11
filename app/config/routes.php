@@ -96,4 +96,9 @@ return [
     'controller' => 'admin',
     'action' => 'addImageDdHandler'
   ],
+
+  PATH . "deleteProduct" => [
+    'controller' => 'admin',
+    'action' => 'deleteProductHandler'
+  ],
 ];

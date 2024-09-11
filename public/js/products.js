@@ -10,7 +10,7 @@ document.querySelector(".table-striped")?.addEventListener("click", (e) => {
     if (e.target.matches(".fa-pen-to-square, .fa-pen-to-square *")) {
         getTargetProduct(body);
     } else if (e.target.matches(".delete-btn, .delete-btn *")) {
-        console.log("Удалить");
+        deleteProduct(body);
     }
 });
 
@@ -269,6 +269,42 @@ function changeProduct(body) {
                 );
             } else {
                 // console.log(data);
+                location.reload();
+            }
+        })
+        .catch((err) => {
+            if (PROD) {
+                alert(err);
+            } else {
+                console.error(err);
+            }
+        });
+}
+
+function deleteProduct(body) {
+    fetch("deleteProduct", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            credentials: "same-origin",
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        body: body,
+    })
+        .then((resp) => {
+            if (!resp.ok) {
+                throw new Error(
+                    "Ошибка добавления визбранное. Попробуйте позже"
+                );
+            }
+            return resp.text();
+        })
+        .then((data) => {
+            if (data === false) {
+                throw new Error(
+                    "Ошибка добавления в корзину. Попробуйте позже"
+                );
+            } else {
                 location.reload();
             }
         })

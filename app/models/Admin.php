@@ -45,6 +45,11 @@ class Admin extends Model
     return $this->db->custom_query("SELECT * FROM categories WHERE id != $id");
   }
 
+  public function deleteProduct($data)
+  {
+    return $this->db->custom_query("DELETE FROM products WHERE `id` = '$data->productId'");
+  }
+
   public function set_product($data)
   {
     $this->db->custom_query("UPDATE products SET `name` = '$data->name', `image` = '$data->imageName', `price` = '$data->price', `category_id` = '$data->category', `discount` = $data->discount, `count` = '$data->count' WHERE id = '$data->idProducts'");

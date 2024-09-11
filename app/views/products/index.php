@@ -62,7 +62,7 @@
                                         <i class="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Изменить</i>
                                     </td>
                                     <td>
-                                        <i class="fa-solid fa-trash delete-btn" data-bs-toggle="modal" data-bs-target="#delModal"> Удалить</i>
+                                        <i class="fa-solid fa-trash delete-btn"> Удалить</i>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -81,19 +81,6 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
-        </div>
-    </div>
-</div>
-
-<!-- Modal del-->
-<div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
-    <div class="modal-dialog text-darck bg-warning mb-3 modal-del">
-        <div class="modal-footer">
-            <h1 class="text-center">
-                Are you sure you want to delete this product?
-            </h1>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Delete</button>
         </div>
     </div>
 </div>

@@ -35,6 +35,8 @@ class Router
       $url_with_query = 'changeProduct';
     } else if ($url_with_query == 'admin/addImageDd') {
       $url_with_query = 'addImageDd';
+    } else if ($url_with_query == 'admin/deleteProduct') {
+      $url_with_query = 'deleteProduct';
     }
 
 
