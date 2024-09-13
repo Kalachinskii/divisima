@@ -101,4 +101,24 @@ return [
     'controller' => 'admin',
     'action' => 'deleteProductHandler'
   ],
+
+  PATH . "addNewProduct" => [
+    'controller' => 'admin',
+    'action' => 'addNewProductHandler'
+  ],
+
+  PATH . "addNewCategory" => [
+    'controller' => 'admin',
+    'action' => 'addNewCategoryHandler'
+  ],
+
+  PATH . "getAllCategory" => [
+    'controller' => 'admin',
+    'action' => 'getAllCategoryHandler'
+  ],
+
+  PATH . "deleteCategory" => [
+    'controller' => 'admin',
+    'action' => 'deleteCategoryHandler'
+  ],
 ];

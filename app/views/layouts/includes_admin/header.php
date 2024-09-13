@@ -155,7 +155,7 @@
     <div class="sidebar">
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
+          <li class="nav-item" id="users-nav-item">
             <a href="users" class="nav-link">
               <i class="nav-icon far fa-solid fa-user"></i>
               <p>
@@ -164,7 +164,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" id="products-nav-item">
             <a href="products" class="nav-link">
               <i class="nav-icon far fa-solid fa-cart-shopping"></i>
               <p>

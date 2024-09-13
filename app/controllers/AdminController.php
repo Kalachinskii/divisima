@@ -55,8 +55,9 @@ class AdminController extends Controller
     $products = $this->model->get_products();
     $count_users = $this->model->get_count_users();
     $count_products = $this->model->get_count_products();
+    $categories = $this->model->get_categories();
 
-    $data = compact('count_products', 'count_users', 'products');
+    $data = compact('count_products', 'count_users', 'products', 'categories');
     $this->view->layout = 'admin';
     $this->view->render((object) $data);
   }
@@ -135,6 +136,38 @@ class AdminController extends Controller
     }
   }
 
+  public function addNewCategoryHandlerAction()
+  {
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $data = json_decode($json)->category;
+      $this->model->add_new_category($data);
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
+
+  public function addNewProductHandlerAction()
+  {
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $data = json_decode($json)->formContent;
+      debug($data);
+      $this->model->add_new_product($data);
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
   public function deleteProductHandlerAction()
   {
     if ($this->isFetch()) {
@@ -159,7 +192,7 @@ class AdminController extends Controller
       $productId = json_decode($json)->productId; // получили id товара
       $product = $this->model->get_product($productId);
       $categorieId = $this->model->get_categorie_id($productId);
-      $categories = $this->model->get_categories($categorieId[0]->category_id);
+      $categories = $this->model->get_categories_not_id($categorieId[0]->category_id);
       echo json_encode((object)([$product, $categories, $categorieId[0]->category_id]));
     } else {
       if (PROD) {
@@ -168,6 +201,26 @@ class AdminController extends Controller
         echo '404 Page not found';
       }
     }
+  }
+
+  public function deleteCategoryHandlerAction()
+  {
+    if ($this->isFetch()) {
+      $id = file_get_contents('php://input');
+      $this->model->delete_category_id($id);
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
+  public function getAllCategoryHandlerAction()
+  {
+    $categories = $this->model->get_categories();
+    echo json_encode((object)($categories));
   }
 
   private function validateForm($value, $regex)

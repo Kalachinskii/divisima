@@ -3,6 +3,20 @@ document.querySelectorAll(".discounted-Price")?.forEach((value) => {
     value.innerHTML = "$" + Number(value.innerHTML).toFixed(2);
 });
 
+document.querySelector("aside").addEventListener("click", (e) => {
+    if (e.target.matches("#add-category-form [type='submit']")) {
+        e.preventDefault();
+        const data = new FormData(e.target.closest("form"));
+        const category = Object.fromEntries(data);
+        const body = JSON.stringify({ category });
+        addNewCategory(body);
+    } else if (e.target.matches("#del-category-form [type='submit']")) {
+        e.preventDefault();
+        const id = e.target.closest("form").querySelector("select").value;
+        deleteCategory(id);
+    }
+});
+
 document.querySelector(".table-striped")?.addEventListener("click", (e) => {
     const productId = e.target.closest("tr").dataset.id;
     const body = JSON.stringify({ productId });
@@ -14,17 +28,78 @@ document.querySelector(".table-striped")?.addEventListener("click", (e) => {
     }
 });
 
+// Добавить новый продукт в БД
+document.getElementById("addProductModal")?.addEventListener("click", (e) => {
+    if (e.target.matches(".btn-add-new-product")) {
+        e.preventDefault();
+        let formContent = new FormData(e.target.closest("form"));
+
+        if (
+            e.target.closest("form").querySelector(".form-add-img").files[0]
+                ?.name
+        ) {
+            formContent.append(
+                "imageName",
+                e.target.closest("form").querySelector(".form-add-img")
+                    ?.files[0].name
+            );
+        } else {
+            form = e.target
+                .closest(".modul-box")
+                .querySelector("img")
+                ?.src.split("/");
+            formContent.append("imageName", form[form.length - 1]);
+        }
+        formContent = Object.fromEntries(formContent);
+        body = JSON.stringify({ formContent });
+
+        addNewProduct(body);
+    }
+});
+
+// Добавить картинку на сервер в модуле addProduct
+document
+    .getElementById("addProductModal")
+    ?.querySelector(".modal-content")
+    .addEventListener("change", function (e) {
+        if (e.target.matches("[type='file']")) {
+            const file = e.target.files[0];
+
+            if (file) {
+                const formImg = new FormData();
+                formImg.append("image", file);
+                addImageDd(formImg, e.target);
+            }
+        }
+    });
+
+// изменить картинку в addProduct
+document.getElementById("addProductModal")?.addEventListener("change", (e) => {
+    if (e.target.matches("[type='file']")) {
+        let imgStr = e.target.value;
+        imgArr = imgStr.split("\\");
+        imgName = imgArr[imgArr.length - 1];
+
+        document
+            .getElementById("addProductModal")
+            .querySelector(".img-box")
+            .querySelector("img").src = `/public/img/product/${imgName}`;
+    }
+});
+
 // добавление картинки в БД / изменение если существует
 document
     .getElementById("staticBackdrop")
     ?.querySelector(".modal-content")
     .addEventListener("change", function (e) {
-        const file = e.target.files[0];
+        if (e.target.matches("[type='file']")) {
+            const file = e.target.files[0];
 
-        if (file) {
-            const formImg = new FormData();
-            formImg.append("image", file);
-            addImageDd(formImg, e.target);
+            if (file) {
+                const formImg = new FormData();
+                formImg.append("image", file);
+                addImageDd(formImg, e.target);
+            }
         }
     });
 
@@ -81,6 +156,7 @@ document
         }
     });
 
+// изменение данных по продукту в БД
 document
     .getElementById("staticBackdrop")
     ?.querySelector(".modal-content")
@@ -108,6 +184,8 @@ document
             }
             formContent.append("idProducts", idProducts);
             formContent = Object.fromEntries(formContent);
+            // console.log(formContent);
+
             body = JSON.stringify({ formContent, idProducts });
 
             changeProduct(body);
@@ -139,7 +217,7 @@ function getTargetProduct(body) {
                 );
             } else {
                 let options = ``;
-                for (let i = 0; i < data[1].length - 1; i++) {
+                for (let i = 0; i < data[1].length; i++) {
                     options += `<option value="${data[1][i].id}">${data[1][i].name}</option>`;
                 }
 
@@ -183,14 +261,11 @@ function getTargetProduct(body) {
                                             <label for="floatingInputGrid">Discount</label>
                                         </div>
                                     </div>
-                                    <div class="row g-2 pb-1">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="Сurrent price" value="${(
-                                                data[0][0].price -
-                                                (data[0][0].price / 100) *
-                                                    data[0][0].discount
-                                            ).toFixed(2)}" readonly>
-                                            <label for="floatingInputGrid">Сurrent price</label>
+                                    <div class="row g-2 add-file-img mt-1">
+                                        <div class="mb-3">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" placeholder="Describe the product" name="textarea">${
+                                                data[0][0].description
+                                            }</textarea>
                                         </div>
                                     </div>
                                     <div class="row g-2">
@@ -208,7 +283,7 @@ function getTargetProduct(body) {
                                         </div>
                                     </div>
                                     <div class="row g-2">
-                                        <div class="form-floating">
+                                        <div class="form-floating col">
                                             <select class="form-select" id="floatingSelectGrid" name="category" aria-label="Floating label select example">
                                                 <option selected value="${
                                                     data[2]
@@ -218,6 +293,16 @@ function getTargetProduct(body) {
                                                 ${options}
                                             </select>
                                             <label for="floatingSelectGrid">Categories</label>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="0" name="hot" id="flexRadioDefault1" checked>
+                                                <label class="form-check-label" for="flexRadioDefault1"> Ordinary product </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="1" name="hot" id="flexRadioDefault2">
+                                                <label class="form-check-label" for="flexRadioDefault2"> Hot product</label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -281,6 +366,79 @@ function changeProduct(body) {
         });
 }
 
+function addNewCategory(body) {
+    fetch("addNewCategory", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            credentials: "same-origin",
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        body: body,
+    })
+        .then((resp) => {
+            if (!resp.ok) {
+                throw new Error(
+                    "Ошибка добавления визбранное. Попробуйте позже"
+                );
+            }
+            return resp.text();
+        })
+        .then((data) => {
+            if (data === false) {
+                throw new Error(
+                    "Ошибка добавления в корзину. Попробуйте позже"
+                );
+            } else {
+                location.reload();
+            }
+        })
+        .catch((err) => {
+            if (PROD) {
+                alert(err);
+            } else {
+                console.error(err);
+            }
+        });
+}
+
+function addNewProduct(body) {
+    fetch("addNewProduct", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            credentials: "same-origin",
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        body: body,
+    })
+        .then((resp) => {
+            if (!resp.ok) {
+                throw new Error(
+                    "Ошибка добавления визбранное. Попробуйте позже"
+                );
+            }
+            return resp.text();
+        })
+        .then((data) => {
+            if (data === false) {
+                throw new Error(
+                    "Ошибка добавления в корзину. Попробуйте позже"
+                );
+            } else {
+                console.log(data);
+                // location.reload();
+            }
+        })
+        .catch((err) => {
+            if (PROD) {
+                alert(err);
+            } else {
+                console.error(err);
+            }
+        });
+}
+
 function deleteProduct(body) {
     fetch("deleteProduct", {
         method: "POST",
@@ -316,3 +474,52 @@ function deleteProduct(body) {
             }
         });
 }
+
+function deleteCategory(id) {
+    fetch("deleteCategory", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            credentials: "same-origin",
+            "X-Requested-With": "XMLHttpRequest",
+        },
+        body: id,
+    })
+        .then((resp) => {
+            if (!resp.ok) {
+                throw new Error(
+                    "Ошибка добавления визбранное. Попробуйте позже"
+                );
+            }
+            return resp.text();
+        })
+        .then((data) => {
+            if (data === false) {
+                throw new Error(
+                    "Ошибка добавления в корзину. Попробуйте позже"
+                );
+            } else {
+                location.reload();
+            }
+        })
+        .catch((err) => {
+            if (PROD) {
+                alert(err);
+            } else {
+                console.error(err);
+            }
+        });
+}
+
+// скидка при добавлении товара непривышает 100
+document.getElementById("addProductModal")?.addEventListener("input", (e) => {
+    if (e.target.matches(".input-discount")) {
+        if (e.target.value.length > 0 && e.target.value <= 100) {
+            e.target.value = e.target.value.replace(/\D/g, "").substr(0, 3);
+        } else if (e.target.value > 100) {
+            e.target.value = 100;
+        } else {
+            e.target.value = 0;
+        }
+    }
+});

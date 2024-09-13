@@ -1,4 +1,5 @@
 <?
+
 namespace app\models;
 
 use app\core\Model;
@@ -9,7 +10,7 @@ class Main extends Model
   {
     return $this->db->custom_query("SELECT url_name FROM assets WHERE type_id=1");
   }
-  
+
   public function get_features()
   {
     return $this->db->custom_query("SELECT url_name FROM assets WHERE type_id=2");
@@ -32,7 +33,7 @@ class Main extends Model
 
   public function get_hot_products($hot)
   {
-    return $this->db->custom_query("SELECT * FROM products WHERE hot>={$hot}");
+    return $this->db->custom_query("SELECT * FROM products WHERE hot > {$hot}");
   }
 
   public function add_to_favourites($login, $product_id)

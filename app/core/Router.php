@@ -21,8 +21,6 @@ class Router
 
   private function match()
   {
-    // full url: https://www.divisima.com/about/?id=1&name=bob
-    // REQUEST_URI: /about/?id=1&name=bob
     $url_with_query = trim($_SERVER['REQUEST_URI'], '/'); // about/?id=1&name=bob
     // костыль или исправить обработчики дописав ключ для распознования с обычной страницей
     if ($url_with_query == 'admin/getUserProducts') {
@@ -37,9 +35,15 @@ class Router
       $url_with_query = 'addImageDd';
     } else if ($url_with_query == 'admin/deleteProduct') {
       $url_with_query = 'deleteProduct';
+    } else if ($url_with_query == 'admin/addNewProduct') {
+      $url_with_query = 'addNewProduct';
+    } else if ($url_with_query == 'admin/addNewCategory') {
+      $url_with_query = 'addNewCategory';
+    } else if ($url_with_query == 'admin/getAllCategory') {
+      $url_with_query = 'getAllCategory';
+    } else if ($url_with_query == 'admin/deleteCategory') {
+      $url_with_query = 'deleteCategory';
     }
-
-
 
     $url = $this->removeQueryString($url_with_query);
 

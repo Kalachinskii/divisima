@@ -18,7 +18,7 @@ class MainController extends Controller
     $categories = $this->model->get_categories();
     $products = $this->model->get_products($this->start, $this->limit);
     // debug($products);    
-    $hot = 4;
+    $hot = 0;
     $hot_products = $this->model->get_hot_products($hot);
     if (!empty($_SESSION["user"])) {
       $favourites_array = $this->model->get_favorite_products($_SESSION["user"]);

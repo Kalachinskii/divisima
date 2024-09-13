@@ -40,9 +40,14 @@ class Admin extends Model
   {
     return $this->db->custom_query("SELECT category_id FROM products WHERE id = $productId");
   }
-  public function get_categories($id)
+  public function get_categories_not_id($id)
   {
     return $this->db->custom_query("SELECT * FROM categories WHERE id != $id");
+  }
+
+  public function get_categories()
+  {
+    return $this->db->custom_query("SELECT * FROM categories");
   }
 
   public function deleteProduct($data)
@@ -50,9 +55,22 @@ class Admin extends Model
     return $this->db->custom_query("DELETE FROM products WHERE `id` = '$data->productId'");
   }
 
+  public function add_new_category($data)
+  {
+    $this->db->custom_query("INSERT INTO `categories` (`name`) VALUES (?)", [$data->categorie]);
+  }
+
+  public function add_new_product($data)
+  {
+    $this->db->custom_query("  INSERT INTO `products` 
+  (`name`, `price`, `image`, `category_id`, `discount`, `description`, `count`, `hot`)
+  VALUES (?,?,?,?,?,?,?,?)", [$data->name, $data->price, $data->imageName, '1', $data->discount, $data->textarea, $data->count, '0']);
+  }
+  // $data->category - id нужен
+
   public function set_product($data)
   {
-    $this->db->custom_query("UPDATE products SET `name` = '$data->name', `image` = '$data->imageName', `price` = '$data->price', `category_id` = '$data->category', `discount` = $data->discount, `count` = '$data->count' WHERE id = '$data->idProducts'");
+    $this->db->custom_query("UPDATE products SET `hot` = '$data->hot', `description` = '$data->textarea', `name` = '$data->name', `image` = '$data->imageName', `price` = '$data->price', `category_id` = '$data->category', `discount` = $data->discount, `count` = '$data->count' WHERE id = '$data->idProducts'");
   }
 
   public function get_users()
@@ -107,5 +125,10 @@ class Admin extends Model
       DELETE FROM users WHERE id = $userId;
       COMMIT;"
     );
+  }
+
+  public function delete_category_id($id)
+  {
+    return $this->db->custom_query("DELETE FROM categories WHERE `id` = $id");
   }
 }

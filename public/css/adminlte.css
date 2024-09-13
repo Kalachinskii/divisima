@@ -36,3 +36,13 @@ td img{
 .bg-secondary {
     width: 25px !important;
 }
+
+.activ-btn > a {
+    background: rgba(209, 191, 191, 0.158) !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
