@@ -14,18 +14,17 @@ class AdminController extends Controller
       $is_valid_password = $this->validateForm($_POST["password"], "/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/");
 
       if ($is_valid_login and $is_valid_password) {
-        $is_user = $this->model->check_is_user($_POST["login"]);
-
-        if ($is_user->error) {
-          $this->print_error("Не удалось авторизоваться", $res->error_msg);
-        } elseif (empty($is_user)) {
+        $is_admin = $this->model->check_is_admin($_POST["login"]);
+        if ($is_admin->error) {
+          $this->print_error("Не удалось авторизоваться", $is_admin->error_msg);
+        } elseif (empty($is_admin)) {
           $signin_fail = "Пользователь с логином {$_POST['login']} не найден";
         } else {
-          $is_password_valid = $this->model->check_user_password($is_user->id, $_POST['password']);
+          $is_password_valid = $this->model->check_user_password($is_admin[0]->id, $_POST['password']);
+
           if ($is_password_valid) {
-            $_SESSION['user'] = $_POST['login'];
-            // редирект пользовотеля
-            // debug("asdasd");
+            $_SESSION['admin'] = $_POST['login'];
+            // debug($_SESSION['admin']);
             header("location: /admin/users");
           } else {
             $signin_fail = "Пароль неверный !";
@@ -34,32 +33,52 @@ class AdminController extends Controller
       }
     }
 
-    $data = compact('signin_fail');
-    $this->view->layout = 'auth';
-    $this->view->render((object) $data);
+    if (empty($_SESSION['admin'])) {
+      $data = compact('signin_fail');
+      $this->view->layout = 'auth';
+      $this->view->render((object) $data);
+    } else {
+      header("location: /admin/users");
+    }
   }
 
   public function usersAction()
   {
-    $users = $this->model->get_users();
-    $count_users = $this->model->get_count_users();
-    $count_products = $this->model->get_count_products();
-    $data = compact('count_products', 'count_users', 'users');
-    $this->view->layout = 'admin';
-    $this->view->render((object) $data);
+    if (!empty($_SESSION['admin'])) {
+      $users = $this->model->get_users();
+      $count_users = $this->model->get_count_users();
+      $count_products = $this->model->get_count_products();
+      $data = compact('count_products', 'count_users', 'users');
+      $this->view->layout = 'admin';
+      $this->view->render((object) $data);
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
   }
 
   public function productsAction()
   {
-    // получить всю продукцию
-    $products = $this->model->get_products();
-    $count_users = $this->model->get_count_users();
-    $count_products = $this->model->get_count_products();
-    $categories = $this->model->get_categories();
+    if (!empty($_SESSION['admin'])) {
+      // получить всю продукцию
+      $products = $this->model->get_products();
+      $count_users = $this->model->get_count_users();
+      $count_products = $this->model->get_count_products();
+      $categories = $this->model->get_categories();
 
-    $data = compact('count_products', 'count_users', 'products', 'categories');
-    $this->view->layout = 'admin';
-    $this->view->render((object) $data);
+      $data = compact('count_products', 'count_users', 'products', 'categories');
+      $this->view->layout = 'admin';
+      $this->view->render((object) $data);
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
   }
 
   public function deleteUserHandlerAction()
@@ -184,7 +203,7 @@ class AdminController extends Controller
     }
   }
 
-  public function displayNewContentBySearchHandlerAction()
+  public function getProductsBySearchHandlerAction()
   {
     if ($this->isFetch()) {
       $json = file_get_contents('php://input');
@@ -192,6 +211,23 @@ class AdminController extends Controller
       $products = $this->model->get_products_by_search($data);
       // debug($products);
       echo json_encode((array)($products));
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
+  public function getUsersBySearchHandlerAction()
+  {
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $data = json_decode($json);
+      $users = $this->model->get_users_by_search($data);
+      // debug($products);
+      echo json_encode((array)($users));
     } else {
       if (PROD) {
         include 'app/views/404/index.php';

@@ -21,7 +21,9 @@ class MainController extends Controller
     $hot = 0;
     $hot_products = $this->model->get_hot_products($hot);
     if (!empty($_SESSION["user"])) {
+      // фаворит - красное сердечко
       $favourites_array = $this->model->get_favorite_products($_SESSION["user"]);
+      // кол-во товаров в корзигне юзера
       $cart_qty = $this->model->get_cart_qty($_SESSION["user"]);
       if (!empty($favourites_array)) {
         $favourites = array_map(function ($item) {

@@ -122,8 +122,13 @@ return [
     'action' => 'deleteCategoryHandler'
   ],
 
-  PATH . "displayNewContentBySearch" => [
+  PATH . "getProductsBySearch" => [
     'controller' => 'admin',
-    'action' => 'displayNewContentBySearchHandler'
+    'action' => 'getProductsBySearchHandler'
+  ],
+
+  PATH . "getUsersBySearch" => [
+    'controller' => 'admin',
+    'action' => 'getUsersBySearchHandler'
   ],
 ];

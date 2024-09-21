@@ -13,6 +13,11 @@ class Admin extends Model
     return $this->db->fetchOne($login, $this->table, 'login');
   }
 
+  public function check_is_admin($login)
+  {
+    return $this->db->custom_query("SELECT * FROM users WHERE login = '$login' AND role_id = 2");
+  }
+
   public function check_user_password($id, $password)
   {
     $password_hash = $this->db->custom_query("SELECT password FROM {$this->table} WHERE id={$id}");
@@ -140,5 +145,28 @@ class Admin extends Model
       JOIN categories ON p.category_id = categories.id 
       WHERE p.name LIKE '%$data->content%'
     ");
+  }
+
+  public function get_users_by_search($data)
+  {
+    return $this->db->custom_query("
+    SELECT 
+        users.login,
+        users.id,
+        SUM(carts.qty) as sum_products
+    FROM 
+        $data->table
+    LEFT JOIN 
+        carts ON carts.user_id = users.id
+    WHERE 
+        users.role_id = 1
+    AND
+      users.login
+    LIKE
+      '%$data->content%'
+    GROUP BY 
+        users.login, users.id;
+    ");
+    // return $this->db->custom_query("SELECT login,id FROM users WHERE role_id=1");
   }
 }

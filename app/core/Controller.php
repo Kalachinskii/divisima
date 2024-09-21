@@ -47,8 +47,14 @@ abstract class Controller
 
   public function logout()
   {
-    if (isset($_GET['logout']) and $_GET['logout'] == true) {
+    if (isset($_GET['logout']) and $_GET['logout'] == true and !empty($_SESSION['user'])) {
       unset($_SESSION['user']);
+      $url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+      $url = explode('?', $url);
+      header('location: ' . $url[0]);
+    } else if (isset($_GET['logout']) and $_GET['logout'] == true and !empty($_SESSION['admin'])) {
+      unset($_SESSION['admin']);
+      header('location: /');
     }
   }
 }

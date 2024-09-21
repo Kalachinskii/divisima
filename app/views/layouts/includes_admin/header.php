@@ -139,11 +139,16 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
+      <li class="nav-item">
+        <?php if (isset($_SESSION["admin"]) and !empty($_SESSION["admin"])) : ?>
+          <a class="btn btn-outline-dark btm-sm mb-2 ml-4" href="?logout=true">Logout</a>
+          <!-- <?php endif; ?> -->
+      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
     <!-- Brand Logo -->
     <a href="/admin" class="brand-link">
       <img src="/public/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
