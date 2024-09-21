@@ -1,4 +1,5 @@
 <?
+
 namespace app\controllers;
 
 use app\core\Controller;
@@ -27,7 +28,7 @@ class CartController extends Controller
     $this->view->render((object) $data);
   }
 
-  public function addDelToCartHandlerAction() 
+  public function addDelToCartHandlerAction()
   {
     if ($this->isFetch()) {
       $json = file_get_contents('php://input');
@@ -36,8 +37,8 @@ class CartController extends Controller
       $method = $data->method;
       // добавление товара
       // не авторизован - кука
-      if(empty($_SESSION["user"])) {
-        if(isset($_COOKIE['cart'])) {
+      if (empty($_SESSION["user"])) {
+        if (isset($_COOKIE['cart'])) {
           $cart = unserialize($_COOKIE['cart']);
           if (array_key_exists($product_id, $cart)) {
             if ($method == "del") {
@@ -53,17 +54,17 @@ class CartController extends Controller
                 }
               }
             }
-            setcookie("cart", serialize($cart), time() + 3600); 
+            setcookie("cart", serialize($cart), time() + 3600);
           } else {
             $cart[$product_id] = 1;
-            setcookie("cart", serialize($cart), time() + 3600); 
-          }  
+            setcookie("cart", serialize($cart), time() + 3600);
+          }
         } else {
           $cart[$product_id] = 1;
           setcookie("cart", serialize($cart), time() + 3600);
         }
-      // добавление товара
-      // авторизован - БД
+        // добавление товара
+        // авторизован - БД
       } else {
         $method_function = $method . "_to_cart";
         // $res = $this->model->add_or_del_to_cart($_SESSION['user'], $product_id, $method);
@@ -74,7 +75,7 @@ class CartController extends Controller
         } else {
           echo json_encode(true);
         }
-      } 
+      }
     } else {
       if (PROD) {
         include 'app/views/404/index.php';
@@ -84,7 +85,7 @@ class CartController extends Controller
     }
   }
 
-  public function currentSqyProductsHandlerAction() 
+  public function currentSqyProductsHandlerAction()
   {
     if ($this->isFetch()) {
       $json = file_get_contents('php://input');
@@ -93,8 +94,8 @@ class CartController extends Controller
       $currentSqy = $data->currentSqy;
       // добавление товара
       // не авторизован - кука
-      if(empty($_SESSION["user"])) {
-        if(isset($_COOKIE['cart'])) {
+      if (empty($_SESSION["user"])) {
+        if (isset($_COOKIE['cart'])) {
           $cart = unserialize($_COOKIE['cart']);
 
           if (array_key_exists($product_id, $cart)) {
@@ -103,11 +104,11 @@ class CartController extends Controller
                 $value = $currentSqy;
               }
             }
-            setcookie("cart", serialize($cart), time() + 3600); 
+            setcookie("cart", serialize($cart), time() + 3600);
           }
-        } 
-      // добавление товара
-      // авторизован - БД
+        }
+        // добавление товара
+        // авторизован - БД
       } else {
         // $method_function = $method . "";
         // $res = $this->model->add_or_del_to_cart($_SESSION['user'], $product_id, $method);
@@ -118,7 +119,7 @@ class CartController extends Controller
         } else {
           echo json_encode(true);
         }
-      } 
+      }
     } else {
       if (PROD) {
         include 'app/views/404/index.php';
@@ -127,7 +128,4 @@ class CartController extends Controller
       }
     }
   }
-
-
-
 }

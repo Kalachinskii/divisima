@@ -36,39 +36,39 @@ function renderProducts(data) {
     data.forEach((product) => {
         output += `
         <div class="col-lg-3 col-sm-6 product-wrapper">
-          <div class="product-item" data-id="${
-              product.id
-          }" data-category="<?= ${product.category_id}">
+            <div class="product-item" data-id="${
+                product.id
+            }" data-category="<?= ${product.category_id}">
             <div class="pi-pic">
-              ${
-                  product.discount > 0
-                      ? '<div class="tag-sale">ON SALE</div>'
-                      : ""
-              }
-              <img src="${WWW}/img/product/${product.image}" alt="product">
-              <div class="pi-links">
+                ${
+                    product.discount > 0
+                        ? '<div class="tag-sale">ON SALE</div>'
+                        : ""
+                }
+                <img src="${WWW}/img/product/${product.image}" alt="product">
+                <div class="pi-links">
                 <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
                 <a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
-              </div>
+                </div>
             </div>
             <div class="pi-text">
-              <h6>
+                <h6>
                 ${
                     product.discount > 0
                         ? `
-                  <s>$${product.price.replace(".", ",")}</s>
-                  <br>
+                    <s>$${product.price.replace(".", ",")}</s>
+                    <br>
                   $${(product.price - (product.price / 100) * product.discount)
                       .toFixed(2)
                       .toString()
                       .replace(".", ",")}
-                  `
+                    `
                         : `$${product.price.replace(".", ",")}`
                 }
-              </h6>
-              <p>${product.name}</p>
+                </h6>
+                <p>${product.name}</p>
             </div>
-          </div>
+            </div>
         </div>
         `;
     });
@@ -275,11 +275,10 @@ function currentSqyProductsHandler(elem, body, currentSqy) {
                 );
             } else {
                 // отрисовать сумму по продукту
-                elem.querySelector(".total-col h4 span").innerHTML =
+                elem.querySelector(".total-col h4 span").innerHTML = +(
                     currentSqy *
-                    Math.floor(
-                        +elem.querySelector(".pc-title p span").innerHTML
-                    );
+                    +elem.querySelector(".pc-title p span").innerHTML
+                ).toFixed(2);
 
                 let sum = sumProductsArr().reduce(function (a, b) {
                     return +a + +b;
@@ -287,7 +286,8 @@ function currentSqyProductsHandler(elem, body, currentSqy) {
                 // отрисовать итоговой суммы по всем продуктам
                 elem
                     .closest(".cart-table")
-                    .querySelector(".total-cost #total-cost").innerHTML = sum;
+                    .querySelector(".total-cost #total-cost").innerHTML =
+                    sum.toFixed(2);
             }
         })
         .catch((err) => {
@@ -527,22 +527,30 @@ function addDelToCartHandler(method, body, elem) {
                     "Ошибка добавления в корзину. Попробуйте позже"
                 );
             } else {
-                let price = elem.querySelector(".pc-title p span").innerHTML;
-                price = Math.floor(+price);
+                let price = +elem.querySelector(".pc-title p span").innerHTML;
+                // price = Math.floor(+price);
+                price = price.toFixed(2);
+                price = +price;
                 let totalProduct =
                     +elem.querySelector(".total-col h4 span").innerHTML;
                 let totalAllProduc = +elem
                     .closest(".cart-table")
                     .querySelector(".total-cost #total-cost").innerHTML;
+
+                console.log("price:" + price);
+                console.log("price:" + totalProduct);
+                console.log("price:" + totalAllProduc);
+
                 switch (method) {
                     case "del":
-                        elem.querySelector(".total-col h4 span").innerHTML =
-                            totalProduct - price;
+                        elem.querySelector(".total-col h4 span").innerHTML = +(
+                            totalProduct - +price
+                        ).toFixed(2);
                         elem
                             .closest(".cart-table")
                             .querySelector(
                                 ".total-cost #total-cost"
-                            ).innerHTML = totalAllProduc - price;
+                            ).innerHTML = +(totalAllProduc - price).toFixed(2);
                         document.querySelector(
                             ".shopping-card span"
                         ).textContent =
@@ -552,13 +560,14 @@ function addDelToCartHandler(method, body, elem) {
                             ) - 1;
                         break;
                     case "add":
-                        elem.querySelector(".total-col h4 span").innerHTML =
-                            totalProduct + price;
+                        elem.querySelector(".total-col h4 span").innerHTML = +(
+                            totalProduct + +price
+                        ).toFixed(2);
                         elem
                             .closest(".cart-table")
                             .querySelector(
                                 ".total-cost #total-cost"
-                            ).innerHTML = totalAllProduc + price;
+                            ).innerHTML = +(totalAllProduc + +price).toFixed(2);
                         document.querySelector(
                             ".shopping-card span"
                         ).textContent =
