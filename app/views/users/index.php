@@ -7,9 +7,9 @@
                 <div class="row table-responsive ">
                     <ol class="list-group list-group-numbered" id="list-group">
                         <?php foreach ($data->users as $value) : ?>
-                            <li class="mb-1 mt-1 list-group-item d-flex justify-content-between align-items-center" data-id="<?= $value->id; ?>">
+                            <li class="mb-1 mt-1 list-group-item d-flex justify-content-between align-items-center d-none" data-id="<?= $value->id; ?>">
                                 <div class="ms-2 me-auto">
-                                    <div class="fw-bold"><?= $value->login; ?></div>
+                                    <div class="fw-bold" id="user-login-name"><?= $value->login; ?></div>
                                 </div>
                                 <button type="button" class="btn-cart btn btn-primary mr-3" data-bs-toggle="collapse" href="#collapseExample<?= $value->id; ?>" role="button" aria-expanded="false" aria-controls="collapseExample">
                                     <i class="fa-solid fa-basket-shopping">

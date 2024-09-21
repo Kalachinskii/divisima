@@ -43,7 +43,10 @@ class Router
       $url_with_query = 'getAllCategory';
     } else if ($url_with_query == 'admin/deleteCategory') {
       $url_with_query = 'deleteCategory';
+    } else if ($url_with_query == 'admin/displayNewContentBySearch') {
+      $url_with_query = 'displayNewContentBySearch';
     }
+
 
     $url = $this->removeQueryString($url_with_query);
 

@@ -5,7 +5,7 @@
             <!-- Main row -->
             <div class="row">
                 <div class="row table-responsive align-items-center">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="products-table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -36,7 +36,7 @@
                                     <td>
                                         <?= $value->category_name; ?>
                                     </td>
-                                    <td>
+                                    <td class="name_product">
                                         <?= $value->name; ?>
                                     </td>
                                     <td>

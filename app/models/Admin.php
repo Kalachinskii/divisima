@@ -131,4 +131,14 @@ class Admin extends Model
   {
     return $this->db->custom_query("DELETE FROM categories WHERE `id` = $id");
   }
+
+  public function get_products_by_search($data)
+  {
+    return $this->db->custom_query("
+      SELECT p.*, categories.name AS category_name 
+      FROM $data->table p 
+      JOIN categories ON p.category_id = categories.id 
+      WHERE p.name LIKE '%$data->content%'
+    ");
+  }
 }

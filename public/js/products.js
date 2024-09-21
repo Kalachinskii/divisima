@@ -426,8 +426,8 @@ function addNewProduct(body) {
                     "Ошибка добавления в корзину. Попробуйте позже"
                 );
             } else {
-                console.log(data);
-                // location.reload();
+                // console.log(data);
+                location.reload();
             }
         })
         .catch((err) => {
@@ -520,6 +520,10 @@ document.getElementById("addProductModal")?.addEventListener("input", (e) => {
             e.target.value = 100;
         } else {
             e.target.value = 0;
+        }
+    } else if (e.target.matches(".input-price")) {
+        if (e.target.value > 99999.99) {
+            e.target.value = 99999.99;
         }
     }
 });

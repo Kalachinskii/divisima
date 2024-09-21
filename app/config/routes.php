@@ -121,4 +121,9 @@ return [
     'controller' => 'admin',
     'action' => 'deleteCategoryHandler'
   ],
+
+  PATH . "displayNewContentBySearch" => [
+    'controller' => 'admin',
+    'action' => 'displayNewContentBySearchHandler'
+  ],
 ];

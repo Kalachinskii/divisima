@@ -184,6 +184,23 @@ class AdminController extends Controller
     }
   }
 
+  public function displayNewContentBySearchHandlerAction()
+  {
+    if ($this->isFetch()) {
+      $json = file_get_contents('php://input');
+      $data = json_decode($json);
+      $products = $this->model->get_products_by_search($data);
+      // debug($products);
+      echo json_encode((array)($products));
+    } else {
+      if (PROD) {
+        include 'app/views/404/index.php';
+      } else {
+        echo '404 Page not found';
+      }
+    }
+  }
+
   public function getTargetProductHandlerAction()
   {
     // функция вызывалась через fetch(true) или URL(false)

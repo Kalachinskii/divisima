@@ -36,16 +36,16 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
+    <form class="d-flex form-inline ml-3" id="search-form">
+      <input class="form-control mr-1 form-control-sm" type="search" placeholder="Search" aria-label="Search">
+      <button type="submit" class="btn btn-primary btn-sm">Search</button>
     </form>
+    <!-- <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control " id="search" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control " type="submit">
+      </div>
+    </form> -->
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
